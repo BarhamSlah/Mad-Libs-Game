@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Mad Libs Game"
+version = "1.0.0"
+id = "artifacts/mad-libs"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26237
+
+[services.development]
+run = "pnpm --filter @workspace/mad-libs run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mad-libs", "run", "build" ]
+publicDir = "artifacts/mad-libs/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26237"
+BASE_PATH = "/"
